@@ -9,6 +9,6 @@ public class MedicationResource {
     private Long id;
     private String description;
     private Boolean isDeleted;
-    private PatientResource patient;
+    private Long patientId;
 
 }
