@@ -1,17 +1,14 @@
 package com.agiletech.arteria_api.patient.domain.model.entity;
 
 import com.agiletech.arteria_api.shared.domain.model.AuditModel;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Date;
+import java.sql.Date;
 
 @Getter
 @Setter

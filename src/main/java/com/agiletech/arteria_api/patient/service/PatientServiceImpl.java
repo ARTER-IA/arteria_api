@@ -3,14 +3,14 @@ package com.agiletech.arteria_api.patient.service;
 import com.agiletech.arteria_api.patient.domain.model.entity.Patient;
 import com.agiletech.arteria_api.patient.domain.persistence.PatientRepository;
 import com.agiletech.arteria_api.patient.domain.service.PatientService;
-import com.agiletech.arteria_api.shared.exception.ResourceNotFoundException;
 import com.agiletech.arteria_api.shared.exception.ResourceValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Validator;
 
-import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Calendar;
 import java.util.List;
 
@@ -67,21 +67,32 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public List<Patient> getByFilters(String fullName, String gender, Integer minAge, Integer maxAge) {
+        List<Patient> filteredPatients = new ArrayList<>();
+
+        // Obtener todos los pacientes que cumplan con el filtro de nombre
         if (fullName != null && !fullName.isEmpty()) {
-            return patientRepository.findByFullNameContaining(fullName);
-        } else if (minAge != null && maxAge != null) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.add(Calendar.YEAR, -minAge);
-            Date endDate = (Date) calendar.getTime();
-            calendar.add(Calendar.YEAR, -(maxAge - minAge));
-            Date startDate = (Date) calendar.getTime();
-            return patientRepository.findPatientsByAgeRange(startDate, endDate);
-        } else if (gender != null && !gender.isEmpty()) {
-            return patientRepository.findByGenderAndIsDeletedIsFalse(gender);
+            filteredPatients.addAll(patientRepository.findByFullNameContaining(fullName));
         } else {
-            // Case when there isn't filters
-            return patientRepository.findAllByIsDeletedIsFalse();
+            filteredPatients.addAll(patientRepository.findAllByIsDeletedIsFalse());
         }
+
+        // Filtrar los pacientes por género
+        if (gender != null && !gender.isEmpty()) {
+            filteredPatients.retainAll(patientRepository.findByGenderAndIsDeletedIsFalse(gender));
+        }
+
+        // Filtrar los pacientes por rango de edad
+        if (minAge != null && maxAge != null) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.YEAR, -maxAge);
+            Date startDate = calendar.getTime();
+            calendar.add(Calendar.YEAR, (maxAge - minAge));
+            Date endDate = calendar.getTime();
+
+            filteredPatients.retainAll(patientRepository.findPatientsByAgeRange(startDate, endDate));
+        }
+
+        return filteredPatients;
     }
 
     @Override

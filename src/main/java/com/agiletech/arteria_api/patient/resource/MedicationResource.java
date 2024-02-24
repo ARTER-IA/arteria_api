@@ -1,6 +1,5 @@
 package com.agiletech.arteria_api.patient.resource;
 
-import com.agiletech.arteria_api.patient.domain.model.entity.Patient;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +9,6 @@ public class MedicationResource {
     private Long id;
     private String description;
     private Boolean isDeleted;
-    private Patient patient;
+    private PatientResource patient;
 
 }
