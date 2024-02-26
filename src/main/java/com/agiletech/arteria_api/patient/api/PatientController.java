@@ -5,15 +5,16 @@ import com.agiletech.arteria_api.patient.mapping.PatientMapper;
 import com.agiletech.arteria_api.patient.resource.CreatePatientResource;
 import com.agiletech.arteria_api.patient.resource.PatientResource;
 import com.agiletech.arteria_api.patient.resource.UpdatePatientResource;
+import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
+
 import java.util.List;
 
-@Tag(name = "Patient")
+@Api(tags = "Patient")
 @RestController
 @RequestMapping("api/v1/patients")
 @CrossOrigin
@@ -41,12 +42,6 @@ public class PatientController {
     public List<PatientResource> getPatientsByUsername(@PathVariable String username){
         return patientMapper.toResource(patientService.getByUsernameContaining(username));
     }
-
-    /*@Operation(summary = "Get Patients by Full or Partial Name", description = "Get Patients by Full or Partial Name")
-    @GetMapping("search")
-    public List<PatientResource> searchPatients(@RequestParam String fullName) {
-        return patientMapper.toResource(patientService.getByFullNameContaining(fullName));
-    }*/
 
     @Operation(summary = "Get Patients by Filters", description = "Get Patients by Filters")
     @GetMapping("searchByFilters")

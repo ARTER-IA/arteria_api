@@ -5,6 +5,7 @@ import com.agiletech.arteria_api.calculated_risk.mapping.RecommendationMapper;
 import com.agiletech.arteria_api.calculated_risk.resource.CreateRecommendationResource;
 import com.agiletech.arteria_api.calculated_risk.resource.RecommendationResource;
 import com.agiletech.arteria_api.calculated_risk.resource.UpdateRecommendationResource;
+import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "Recommendation")
+@Api(tags = "Recommendation")
 @RestController
 @RequestMapping("api/v1/recommendations")
 @CrossOrigin

@@ -6,6 +6,8 @@ import com.agiletech.arteria_api.doctor.mapping.DoctorMapper;
 import com.agiletech.arteria_api.doctor.resource.DoctorResource;
 import com.agiletech.arteria_api.doctor.resource.UpdateDoctorResource;
 import com.agiletech.arteria_api.security.domain.service.communication.AuthenticateRequest;
+import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@Api(tags = "Doctor")
 @RestController
 @RequestMapping("/api/v1/doctors")
 @CrossOrigin

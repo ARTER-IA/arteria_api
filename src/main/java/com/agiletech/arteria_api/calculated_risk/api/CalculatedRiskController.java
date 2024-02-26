@@ -5,6 +5,7 @@ import com.agiletech.arteria_api.calculated_risk.mapping.CalculatedRiskMapper;
 import com.agiletech.arteria_api.calculated_risk.resource.CalculatedRiskResource;
 import com.agiletech.arteria_api.calculated_risk.resource.CreateCalculatedRiskResource;
 import com.agiletech.arteria_api.calculated_risk.resource.UpdateCalculatedRiskResource;
+import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "Calculated Risk")
+@Api(tags = "Calculated Risk")
 @RestController
 @RequestMapping("api/v1/calculatedRisks")
 @CrossOrigin

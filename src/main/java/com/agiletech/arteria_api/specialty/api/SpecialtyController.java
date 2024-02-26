@@ -5,6 +5,7 @@ import com.agiletech.arteria_api.specialty.mapping.SpecialtyMapper;
 import com.agiletech.arteria_api.specialty.resource.CreateSpecialtyResource;
 import com.agiletech.arteria_api.specialty.resource.SpecialtyResource;
 import com.agiletech.arteria_api.specialty.resource.UpdateSpecialtyResource;
+import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@Tag(name = "Specialty")
+@Api(tags = "Specialty")
 @RestController
 @RequestMapping("/api/v1/specialties")
 @CrossOrigin

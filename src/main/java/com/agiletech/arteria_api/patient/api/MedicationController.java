@@ -5,6 +5,7 @@ import com.agiletech.arteria_api.patient.mapping.MedicationMapper;
 import com.agiletech.arteria_api.patient.resource.MedicationResource;
 import com.agiletech.arteria_api.patient.resource.CreateMedicationResource;
 import com.agiletech.arteria_api.patient.resource.UpdateMedicationResource;
+import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "Medication")
+@Api(tags = "Medication")
 @RestController
 @RequestMapping("api/v1/medications")
 public class MedicationController {

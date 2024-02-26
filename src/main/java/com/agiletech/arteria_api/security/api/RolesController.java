@@ -3,6 +3,8 @@ package com.agiletech.arteria_api.security.api;
 import com.agiletech.arteria_api.security.domain.service.RoleService;
 import com.agiletech.arteria_api.security.mapping.RoleMapper;
 import com.agiletech.arteria_api.security.resource.RoleResource;
+import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Api(value = "", tags = "Roles")
 @RestController
 @RequestMapping("/api/v1/roles")
 @CrossOrigin
