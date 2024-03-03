@@ -14,4 +14,5 @@ public class CalculatedRiskResource {
     private Float ischemiaProbability;
     private Float cardiomyopathyProbability;
     private Float arrhythmiasProbability;
+    private Long formId;
 }

@@ -1,7 +1,11 @@
 package com.agiletech.arteria_api.calculated_risk.domain.model.entity;
 
+import com.agiletech.arteria_api.form.domain.model.entity.Form;
 import com.agiletech.arteria_api.shared.domain.model.AuditModel;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -33,4 +37,11 @@ public class CalculatedRisk extends AuditModel {
 
     @NotNull
     private Float arrhythmiasProbability;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "form_id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Form form;
+
 }

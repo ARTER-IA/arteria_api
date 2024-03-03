@@ -1,5 +1,6 @@
 package com.agiletech.arteria_api.calculated_risk.api;
 
+import com.agiletech.arteria_api.calculated_risk.domain.model.entity.CalculatedRisk;
 import com.agiletech.arteria_api.calculated_risk.domain.service.CalculatedRiskService;
 import com.agiletech.arteria_api.calculated_risk.mapping.CalculatedRiskMapper;
 import com.agiletech.arteria_api.calculated_risk.resource.CalculatedRiskResource;
@@ -36,10 +37,16 @@ public class CalculatedRiskController {
         return calculatedRiskMapper.toResource(calculatedRiskService.getById(calculatedRiskId));
     }
 
+    @Operation(summary = "Get Calculated Risk By Form Id", description = "Get Calculated Risk by Form Id")
+    @GetMapping("form/{formId}")
+    public List<CalculatedRiskResource> getCalculatedRiskByFormId(@PathVariable Long formId){
+        return calculatedRiskMapper.toResource(calculatedRiskService.getByFormId(formId));
+    }
+
     @Operation(summary = "Create New Calculated Risk", description = "Create New Calculated Risk")
-    @PostMapping("")
-    public CalculatedRiskResource createCalculatedRisk(@RequestBody CreateCalculatedRiskResource model){
-        return calculatedRiskMapper.toResource(calculatedRiskService.create(calculatedRiskMapper.toModel(model)));
+    @PostMapping("form/{formId}")
+    public CalculatedRiskResource createCalculatedRisk(@RequestBody CreateCalculatedRiskResource model, @PathVariable Long formId){
+        return calculatedRiskMapper.toResource(calculatedRiskService.create(calculatedRiskMapper.toModel(model), formId));
     }
 
     @Operation(summary = "Update Calculated Risk", description = "Update Calculated Risk")
