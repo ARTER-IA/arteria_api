@@ -1,5 +1,6 @@
 package com.agiletech.arteria_api.doctor.resource;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.Date;
@@ -15,6 +16,7 @@ public class DoctorResource {
     private String firstName;
     private String lastName;
     private String dni;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ")
     private Date birthDate;
     private String gender;
     private String country;

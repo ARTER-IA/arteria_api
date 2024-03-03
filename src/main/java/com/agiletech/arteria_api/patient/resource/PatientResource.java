@@ -10,12 +10,11 @@ import java.util.Date;
 @Setter
 public class PatientResource {
     private Long id;
-    private String username;
     private String firstName;
     private String lastName;
     private String dni;
     private String email;
-    private String password;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ")
     private Date birthdayDate;
     private String gender;
     private String phoneNumber;
