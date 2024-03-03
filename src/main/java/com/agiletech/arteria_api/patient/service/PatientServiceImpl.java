@@ -22,9 +22,6 @@ public class PatientServiceImpl implements PatientService {
     @Autowired
     private PatientRepository patientRepository;
 
-    @Autowired
-    private Validator validator;
-
     @Override
     public List<Patient> getAll() {
         return patientRepository.findAllByIsDeletedIsFalse();
@@ -34,36 +31,6 @@ public class PatientServiceImpl implements PatientService {
     public Patient getById(Long patientId) {
         return patientRepository.findByIdAndIsDeletedIsFalse(patientId);
     }
-
-    @Override
-    public Patient getByUsername(String username) {
-        return patientRepository.findByUsernameAndIsDeletedIsFalse(username);
-    }
-
-    @Override
-    public List<Patient> getByUsernameContaining(String username) {
-        return patientRepository.findByUsernameContainingAndIsDeletedIsFalse(username);
-    }
-
-    /*@Override
-    public List<Patient> getByFullNameContaining(String fullName) {
-        return patientRepository.findByFullNameContaining(fullName);
-    }
-
-    @Override
-    public List<Patient> getByAgeRange(Integer minAge, Integer maxAge) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.YEAR, -minAge);
-        Date endDate = (Date) calendar.getTime();
-        calendar.add(Calendar.YEAR, -(maxAge - minAge));
-        Date startDate = (Date) calendar.getTime();
-        return patientRepository.findPatientsByAgeRange(startDate, endDate);
-    }
-
-    @Override
-    public List<Patient> getByGender(String gender) {
-        return patientRepository.findByGenderAndIsDeletedIsFalse(gender);
-    }*/
 
     @Override
     public List<Patient> getByFilters(String fullName, String gender, Integer minAge, Integer maxAge) {
@@ -110,12 +77,10 @@ public class PatientServiceImpl implements PatientService {
     public Patient update(Long patientId, Patient request) {
         try {
             var patient = patientRepository.getById(patientId);
-            patient.setUsername(request.getUsername());
             patient.setFirstName(request.getFirstName());
             patient.setLastName(request.getLastName());
             patient.setDni(request.getDni());
             patient.setEmail(request.getEmail());
-            patient.setPassword(request.getPassword());
             patient.setBirthdayDate(request.getBirthdayDate());
             patient.setGender(request.getGender());
             patient.setPhoneNumber(request.getPhoneNumber());

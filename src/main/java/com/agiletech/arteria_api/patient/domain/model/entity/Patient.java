@@ -25,11 +25,6 @@ public class Patient extends AuditModel{
 
     @NotNull
     @NotBlank
-    @Size(max=25)
-    private String username;
-
-    @NotNull
-    @NotBlank
     private String firstName;
 
     @NotNull
@@ -46,11 +41,6 @@ public class Patient extends AuditModel{
     @Size(max=50)
     @Email
     private String email;
-
-    @NotNull
-    @NotBlank
-    @Size(min=8,max=20)
-    private String password;
 
     @NotNull
     private Date birthdayDate;

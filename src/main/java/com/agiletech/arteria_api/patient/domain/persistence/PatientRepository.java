@@ -14,8 +14,6 @@ public interface PatientRepository extends JpaRepository <Patient, Long>{
     List<Patient> findAllByIsDeletedIsFalse();
     Patient findByIdAndIsDeletedIsFalse(Long patientId);
     Patient findByEmailAndIsDeletedIsFalse(String email);
-    Patient findByUsernameAndIsDeletedIsFalse(String username);
-    List<Patient> findByUsernameContainingAndIsDeletedIsFalse(String username);
     List<Patient> findByFirstNameAndLastNameContainingAndIsDeletedIsFalse(String firstName, String lastName);
     @Query("SELECT p FROM Patient p WHERE p.isDeleted IS FALSE AND LOWER(p.firstName) LIKE LOWER(CONCAT('%', :name, '%')) OR LOWER(p.lastName) LIKE LOWER(CONCAT('%', :name, '%'))")
     List<Patient> findByFullNameContaining(String name);

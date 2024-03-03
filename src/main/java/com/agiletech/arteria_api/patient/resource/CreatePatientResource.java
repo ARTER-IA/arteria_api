@@ -12,12 +12,6 @@ import java.util.Date;
 @Getter
 @Setter
 public class CreatePatientResource {
-
-    @NotNull
-    @NotBlank
-    @Size(max=25)
-    private String username;
-
     @NotNull
     @NotBlank
     private String firstName;
@@ -36,11 +30,6 @@ public class CreatePatientResource {
     @Size(max=50)
     @Email
     private String email;
-
-    @NotNull
-    @NotBlank
-    @Size(min=8,max=20)
-    private String password;
 
     @NotNull
     private Date birthdayDate;

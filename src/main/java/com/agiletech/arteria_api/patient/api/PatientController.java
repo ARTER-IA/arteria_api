@@ -37,12 +37,6 @@ public class PatientController {
         return patientMapper.toResource(patientService.getById(patientId));
     }
 
-    @Operation(summary = "Get All Patients by Username", description = "Get All Patients by Username Containing")
-    @GetMapping("username/{username}")
-    public List<PatientResource> getPatientsByUsername(@PathVariable String username){
-        return patientMapper.toResource(patientService.getByUsernameContaining(username));
-    }
-
     @Operation(summary = "Get Patients by Filters", description = "Get Patients by Filters")
     @GetMapping("searchByFilters")
     public List<PatientResource> getPatientsByFilters(
