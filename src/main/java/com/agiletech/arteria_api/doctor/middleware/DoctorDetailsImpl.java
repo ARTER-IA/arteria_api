@@ -41,10 +41,10 @@ public class DoctorDetailsImpl implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    @Override
+    /*@Override
     public String getUsername() {
         return null;
-    }
+    }*/
 
     @Override
     public boolean isAccountNonExpired() {

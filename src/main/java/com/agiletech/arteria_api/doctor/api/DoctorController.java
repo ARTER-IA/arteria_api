@@ -19,7 +19,7 @@ import java.util.List;
 @Api(tags = "Doctor")
 @RestController
 @RequestMapping("/api/v1/doctors")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 public class DoctorController {
 
     @Autowired
