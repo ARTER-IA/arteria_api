@@ -48,9 +48,9 @@ public class PatientController {
     }
 
     @Operation(summary = "Create New Patient", description = "Create New Patient")
-    @PostMapping("")
-    public PatientResource createPatient(@RequestBody CreatePatientResource model){
-        return patientMapper.toResource(patientService.create(patientMapper.toModel(model)));
+    @PostMapping("/doctor/{doctorId}")
+    public PatientResource createPatient(@RequestBody CreatePatientResource model, @PathVariable Long doctorId){
+        return patientMapper.toResource(patientService.create(patientMapper.toModel(model), doctorId));
     }
 
     @Operation(summary = "Update Patient", description = "Update Patient")

@@ -8,7 +8,7 @@ public interface PatientService {
     List<Patient> getAll();
     Patient getById(Long patientId);
     List<Patient> getByFilters(String fullName, String gender, Integer minAge, Integer maxAge);
-    Patient create(Patient patient);
+    Patient create(Patient patient, Long doctorId);
     Patient update(Long patientId, Patient patient);
     Patient delete(Long patientId);
 }

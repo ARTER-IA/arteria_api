@@ -1,7 +1,11 @@
 package com.agiletech.arteria_api.patient.domain.model.entity;
 
+import com.agiletech.arteria_api.doctor.domain.model.entity.Doctor;
 import com.agiletech.arteria_api.shared.domain.model.AuditModel;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -9,6 +13,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -45,9 +50,8 @@ public class Patient extends AuditModel{
     @NotNull
     private Date birthdayDate;
 
-    @NotNull
-    @NotBlank
-    private String gender;
+    @Embedded
+    private Gender gender;
 
     @NotNull
     @NotBlank
@@ -80,6 +84,19 @@ public class Patient extends AuditModel{
     @NotBlank
     private String emergencyPhoneNumber;
 
+    private String allergies;
+
+    private String currentMedications;
+
+    private String previousIllnesses;
+
+    private String previousSurgeries;
+
+    @ElementCollection
+    @CollectionTable(name = "current_conditions", joinColumns = @JoinColumn(name = "patient_id"))
+    @Column(name = "current_conditions")
+    private List<String> currentConditions;
+
     @NotNull
     @NotBlank
     private String profilePictureUri;
@@ -87,4 +104,9 @@ public class Patient extends AuditModel{
     @NotNull
     private Boolean isDeleted;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "doctor_id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Doctor doctor;
 }

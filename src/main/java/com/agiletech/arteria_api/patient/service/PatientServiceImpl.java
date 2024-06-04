@@ -1,8 +1,10 @@
 package com.agiletech.arteria_api.patient.service;
 
+import com.agiletech.arteria_api.doctor.domain.persistence.DoctorRepository;
 import com.agiletech.arteria_api.patient.domain.model.entity.Patient;
 import com.agiletech.arteria_api.patient.domain.persistence.PatientRepository;
 import com.agiletech.arteria_api.patient.domain.service.PatientService;
+import com.agiletech.arteria_api.shared.exception.ResourceNotFoundException;
 import com.agiletech.arteria_api.shared.exception.ResourceValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,9 +20,13 @@ import java.util.List;
 public class PatientServiceImpl implements PatientService {
 
     private final static String ENTITY = "Patient";
+    private final static String ENTITY2 = "Doctor";
 
     @Autowired
     private PatientRepository patientRepository;
+
+    @Autowired
+    private DoctorRepository doctorRepository;
 
     @Override
     public List<Patient> getAll() {
@@ -63,8 +69,11 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public Patient create(Patient request) {
+    public Patient create(Patient request, Long doctorId) {
         try {
+            var doctor = doctorRepository.findById(doctorId).
+                    orElseThrow(() -> new ResourceNotFoundException(ENTITY2, doctorId));
+            request.setDoctor(doctor);
             request.setIsDeleted(false);
             return patientRepository.save(request);
         }

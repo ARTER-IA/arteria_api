@@ -1,13 +1,16 @@
 package com.agiletech.arteria_api.patient.resource;
 
+import com.agiletech.arteria_api.patient.domain.model.entity.Gender;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -34,9 +37,8 @@ public class CreatePatientResource {
     @NotNull
     private Date birthdayDate;
 
-    @NotNull
-    @NotBlank
-    private String gender;
+    @Embedded
+    private Gender gender;
 
     @NotNull
     @NotBlank
@@ -68,6 +70,16 @@ public class CreatePatientResource {
     @NotNull
     @NotBlank
     private String emergencyPhoneNumber;
+
+    private String allergies;
+
+    private String currentMedications;
+
+    private String previousIllnesses;
+
+    private String previousSurgeries;
+
+    private List<String> currentConditions;
 
     @NotNull
     @NotBlank
