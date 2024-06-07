@@ -12,6 +12,7 @@ import java.util.List;
 public interface PatientRepository extends JpaRepository <Patient, Long>{
 
     List<Patient> findAllByIsDeletedIsFalse();
+    List<Patient> findAllByDoctorIdAndIsDeletedIsFalse(Long doctorId);
     Patient findByIdAndIsDeletedIsFalse(Long patientId);
     Patient findByEmailAndIsDeletedIsFalse(String email);
     List<Patient> findByFirstNameAndLastNameContainingAndIsDeletedIsFalse(String firstName, String lastName);

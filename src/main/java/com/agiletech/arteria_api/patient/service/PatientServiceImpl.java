@@ -34,6 +34,11 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
+    public List<Patient> getByDoctorId(Long doctorId) {
+        return patientRepository.findAllByDoctorIdAndIsDeletedIsFalse(doctorId);
+    }
+
+    @Override
     public Patient getById(Long patientId) {
         return patientRepository.findByIdAndIsDeletedIsFalse(patientId);
     }

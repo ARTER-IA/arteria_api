@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface PatientService {
     List<Patient> getAll();
+    List<Patient> getByDoctorId(Long doctorId);
     Patient getById(Long patientId);
     List<Patient> getByFilters(String fullName, String gender, Integer minAge, Integer maxAge);
     Patient create(Patient patient, Long doctorId);

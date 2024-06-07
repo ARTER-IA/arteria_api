@@ -31,6 +31,12 @@ public class PatientController {
         return patientMapper.toResource(patientService.getAll());
     }
 
+    @Operation(summary = "Get Patients by Doctor", description = "Get Patients by Doctor Id")
+    @GetMapping("doctor/{doctorId}")
+    public List<PatientResource> getByDoctorId(@PathVariable Long doctorId){
+        return patientMapper.toResource(patientService.getByDoctorId(doctorId));
+    }
+
     @Operation(summary = "Get Patient by Id", description = "Get Patient by Id")
     @GetMapping("{patientId}")
     public PatientResource getPatientById(@PathVariable Long patientId){
