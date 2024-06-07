@@ -10,59 +10,59 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 public class UpdateFormResource {
-    private Float height;
-
-    private Float weight;
-
-    private Float imc;
 
     private Integer age;
+
+    private Integer weight;
+
+    private Integer length;
 
     @NotNull
     @NotBlank
     @Size(max = 100)
-    private String gender;
+    private String sex;
 
-    private Integer smoking;
+    private Float bmi;
 
-    private Integer alcoholism;
+    private Integer dm;
 
-    private Integer sedentaryLifestyle;
+    private Integer htn;
 
-    private Integer familyHistoryOfEcv;
+    private Integer current_Smoker;
 
-    private Integer diabetesMellitus;
+    private Integer ex_Smoker;
+
+    private Integer fh;
 
     private Integer obesity;
 
-    @Size(max = 10)
-    private String bloodPressure;
+    private Integer cva;
 
-    private Integer coronaryCalcium;
+    private Integer thyroid_Disease;
 
-    private Integer triglycerides;
+    private Integer bp;
 
-    private Integer cholesterolTotal;
+    private Integer pr;
 
-    private Float cLDL;
+    private Integer weak_Peripheral_Pulse;
 
-    private Float cHDL;
+    private Integer q_Wave;
 
-    private Float cReactiveProtein;
+    private Integer st_Elevation;
 
-    private Integer heartRate;
+    private Integer st_Depression;
 
-    private Float stSegment;
+    private Integer tInversion;
 
-    private Float qtInterval;
+    private Integer lvh;
 
-    private Float electricShaft;
+    private Integer poor_R_Progression;
 
-    private Float rrInterval;
+    private Integer tg;
 
-    private Float qrsComplex;
+    private Integer ldl;
 
-    private Float tWave;
+    private Float hdl;
 
-    private Float prSegmentAnomalies;
+    private Float hb;
 }
