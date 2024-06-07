@@ -3,36 +3,41 @@ package com.agiletech.arteria_api.form.resource;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 @Getter
 @Setter
 public class FormResource {
+
     private Long id;
-    private Float height;
-    private Float weight;
-    private Float imc;
     private Integer age;
-    private String gender;
-    private Integer smoking;
-    private Integer alcoholism;
-    private Integer sedentaryLifestyle;
-    private Integer familyHistoryOfEcv;
-    private Integer diabetesMellitus;
+    private Integer weight;
+    private Integer length;
+    private String sex;
+    private Float bmi;
+    private Integer dm;
+    private Integer htn;
+    private Integer current_Smoker;
+    private Integer ex_Smoker;
+    private Integer fh;
     private Integer obesity;
-    private String bloodPressure;
-    private Integer coronaryCalcium;
-    private Integer triglycerides;
-    private Integer cholesterolTotal;
-    private Float cLDL;
-    private Float cHDL;
-    private Float cReactiveProtein;
-    private Integer heartRate;
-    private Float stSegment;
-    private Float qtInterval;
-    private Float electricShaft;
-    private Float rrInterval;
-    private Float qrsComplex;
-    private Float tWave;
-    private Float prSegmentAnomalies;
+    private Integer cva;
+    private Integer thyroid_Disease;
+    private Integer bp;
+    private Integer pr;
+    private Integer weak_Peripheral_Pulse;
+    private Integer q_Wave;
+    private Integer st_Elevation;
+    private Integer st_Depression;
+    private Integer tInversion;
+    private Integer lvh;
+    private Integer poor_R_Progression;
+    private Integer tg;
+    private Integer ldl;
+    private Float hdl;
+    private Float hb;
     private Long doctorId;
     private Long patientId;
 }
