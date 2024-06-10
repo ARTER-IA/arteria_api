@@ -24,19 +24,10 @@ public class CalculatedRisk extends AuditModel {
     private Long id;
 
     @NotNull
-    private Float eacProbability;
+    private Float prediction_probability;
 
     @NotNull
-    private Float heartBlockProbability;
-
-    @NotNull
-    private Float ischemiaProbability;
-
-    @NotNull
-    private Float cardiomyopathyProbability;
-
-    @NotNull
-    private Float arrhythmiasProbability;
+    private Float predicted_class;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)

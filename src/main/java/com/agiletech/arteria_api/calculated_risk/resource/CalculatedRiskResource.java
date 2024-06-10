@@ -9,10 +9,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 public class CalculatedRiskResource {
     private Long id;
-    private Float eacProbability;
-    private Float heartBlockProbability;
-    private Float ischemiaProbability;
-    private Float cardiomyopathyProbability;
-    private Float arrhythmiasProbability;
+    private Float prediction_probability;
+    private Float predicted_class;
     private Long formId;
 }

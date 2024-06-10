@@ -55,11 +55,8 @@ public class CalculatedRiskServiceImpl implements CalculatedRiskService {
             CalculatedRisk calculatedRisk = calculatedRiskRepository.findById(calculatedRiskId)
                     .orElseThrow(() -> new ResourceNotFoundException(ENTITY, calculatedRiskId));
 
-            calculatedRisk.setEacProbability(request.getEacProbability());
-            calculatedRisk.setHeartBlockProbability(request.getHeartBlockProbability());
-            calculatedRisk.setIschemiaProbability(request.getIschemiaProbability());
-            calculatedRisk.setCardiomyopathyProbability(request.getCardiomyopathyProbability());
-            calculatedRisk.setArrhythmiasProbability(request.getArrhythmiasProbability());
+            calculatedRisk.setPrediction_probability(request.getPrediction_probability());
+            calculatedRisk.setPredicted_class(request.getPredicted_class());
 
             return calculatedRiskRepository.save(calculatedRisk);
         }

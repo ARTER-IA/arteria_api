@@ -8,18 +8,10 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 public class CreateCalculatedRiskResource {
-    @NotNull
-    private Float eacProbability;
 
     @NotNull
-    private Float heartBlockProbability;
+    private Float prediction_probability;
 
     @NotNull
-    private Float ischemiaProbability;
-
-    @NotNull
-    private Float cardiomyopathyProbability;
-
-    @NotNull
-    private Float arrhythmiasProbability;
+    private Float predicted_class;
 }
