@@ -9,15 +9,21 @@ import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @Api(tags = "Patient")
 @RestController
 @RequestMapping("api/v1/patients")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin()
 public class PatientController {
     @Autowired
     private PatientService patientService;
@@ -54,9 +60,31 @@ public class PatientController {
     }
 
     @Operation(summary = "Create New Patient", description = "Create New Patient")
-    @PostMapping("/doctor/{doctorId}")
+    @PostMapping("doctor/{doctorId}")
     public PatientResource createPatient(@RequestBody CreatePatientResource model, @PathVariable Long doctorId){
         return patientMapper.toResource(patientService.create(patientMapper.toModel(model), doctorId));
+    }
+
+    @PostMapping("upload/{patientId}")
+    public ResponseEntity<Map<String, String>> uploadProfilePicture(@PathVariable Long patientId, @RequestParam("file") MultipartFile file) {
+        try {
+            patientService.uploadProfilePicture(patientId, file);
+            return ResponseEntity.ok(Map.of("message", "File uploaded successfully"));
+        } catch (IOException e) {
+            return ResponseEntity.status(500).body(Map.of("message", "File upload failed", "error", e.getMessage()));
+        }
+    }
+
+    @GetMapping("profilePicture/{patientId}")
+    public ResponseEntity<byte[]> getProfilePicture(@PathVariable Long patientId) {
+        byte[] image = patientService.getProfilePicture(patientId);
+        if (image != null) {
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Content-Type", "image/jpeg");
+            return new ResponseEntity<>(image, headers, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @Operation(summary = "Update Patient", description = "Update Patient")

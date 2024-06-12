@@ -8,9 +8,11 @@ import com.agiletech.arteria_api.shared.exception.ResourceNotFoundException;
 import com.agiletech.arteria_api.shared.exception.ResourceValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Validator;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Calendar;
@@ -88,6 +90,21 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
+    public void uploadProfilePicture(Long patientId, MultipartFile file) throws IOException {
+        var patient = patientRepository.findById(patientId)
+                .orElseThrow(() -> new ResourceNotFoundException("Patient", patientId));
+
+        patient.setProfilePictureUri(file.getBytes());
+        patientRepository.save(patient);
+    }
+
+    @Override
+    public byte[] getProfilePicture(Long patientId) {
+        var patient = patientRepository.findById(patientId);
+        return patient.map(Patient::getProfilePictureUri).orElse(null);
+    }
+
+    @Override
     public Patient update(Long patientId, Patient request) {
         try {
             var patient = patientRepository.getById(patientId);
@@ -105,6 +122,11 @@ public class PatientServiceImpl implements PatientService {
             patient.setPolicy(request.getPolicy());
             patient.setEmergencyContact(request.getEmergencyContact());
             patient.setEmergencyPhoneNumber(request.getEmergencyPhoneNumber());
+            patient.setAllergies(request.getAllergies());
+            patient.setCurrentMedications(request.getCurrentMedications());
+            patient.setPreviousIllnesses(request.getPreviousIllnesses());
+            patient.setPreviousSurgeries(request.getPreviousSurgeries());
+            patient.setCurrentConditions(request.getCurrentConditions());
             patient.setProfilePictureUri(request.getProfilePictureUri());
             patient.setIsDeleted(false);
             return patientRepository.save(patient);

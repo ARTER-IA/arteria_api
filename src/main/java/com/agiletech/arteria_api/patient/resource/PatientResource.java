@@ -36,7 +36,6 @@ public class PatientResource {
     private String previousIllnesses;
     private String previousSurgeries;
     private List<String> currentConditions;
-    private String profilePictureUri;
     private Boolean isDeleted;
     private Long doctorId;
 }

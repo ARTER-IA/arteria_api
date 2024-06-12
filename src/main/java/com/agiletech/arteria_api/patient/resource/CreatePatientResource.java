@@ -81,8 +81,4 @@ public class CreatePatientResource {
 
     private List<String> currentConditions;
 
-    @NotNull
-    @NotBlank
-    private String profilePictureUri;
-
 }

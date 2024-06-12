@@ -97,9 +97,13 @@ public class Patient extends AuditModel{
     @Column(name = "current_conditions")
     private List<String> currentConditions;
 
-    @NotNull
-    @NotBlank
-    private String profilePictureUri;
+    //@NotNull
+    //@NotBlank
+    //private String profilePictureUri;
+
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    private byte[] profilePictureUri;
 
     @NotNull
     private Boolean isDeleted;
