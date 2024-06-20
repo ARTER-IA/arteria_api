@@ -36,14 +36,14 @@ public class RecommendationController {
         return recommendationMapper.toResource(recommendationService.getById(recommendationId));
     }
 
-    @Operation(summary = "Get Recommendation by CalculatedRisk", description = "Get Allergies By CalculatedRisk Id")
-    @GetMapping("{calculatedRiskId}/calculatedRisk")
+    @Operation(summary = "Get Recommendation by CalculatedRisk", description = "Get Recommendations By CalculatedRisk Id")
+    @GetMapping("calculatedRisk/{calculatedRiskId}")
     public RecommendationResource getRecommendationByCalculatedRiskId(@PathVariable Long calculatedRiskId){
         return recommendationMapper.toResource((recommendationService.getByCalculatedRisk(calculatedRiskId)));
     }
 
     @Operation(summary = "Create New Recommendation", description = "Create New Recommendation")
-    @PostMapping("{calculatedRiskId}/calculatedRisk")
+    @PostMapping("calculatedRisk/{calculatedRiskId}")
     public RecommendationResource createRecommendation(@RequestBody CreateRecommendationResource model, @PathVariable Long calculatedRiskId){
         return recommendationMapper.toResource(recommendationService.create(recommendationMapper.toModel(model), calculatedRiskId));
     }
