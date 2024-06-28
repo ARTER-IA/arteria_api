@@ -43,6 +43,12 @@ public class CalculatedRiskController {
         return calculatedRiskMapper.toResource(calculatedRiskService.getByFormId(formId));
     }
 
+    @Operation(summary = "Get Calculated Risk By Patient Id", description = "Get Calculated Risk By Patient Id")
+    @GetMapping("patient/{patientId}")
+    public List<CalculatedRiskResource> getCalculatedRiskByPatientId(@PathVariable Long patientId){
+        return calculatedRiskMapper.toResource(calculatedRiskService.getByPatientId(patientId));
+    }
+
     @Operation(summary = "Create New Calculated Risk", description = "Create New Calculated Risk")
     @PostMapping("form/{formId}")
     public CalculatedRiskResource createCalculatedRisk(@RequestBody CreateCalculatedRiskResource model, @PathVariable Long formId){

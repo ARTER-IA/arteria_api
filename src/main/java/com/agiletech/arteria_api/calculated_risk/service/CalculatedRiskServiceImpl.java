@@ -35,6 +35,11 @@ public class CalculatedRiskServiceImpl implements CalculatedRiskService {
     }
 
     @Override
+    public List<CalculatedRisk> getByPatientId(Long patientId) {
+        return calculatedRiskRepository.getAllByPatientId(patientId);
+    }
+
+    @Override
     public CalculatedRisk getById(Long calculatedRiskId) {
         return calculatedRiskRepository.findById(calculatedRiskId)
                 .orElseThrow(() -> new ResourceNotFoundException(ENTITY, calculatedRiskId));

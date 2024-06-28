@@ -127,7 +127,6 @@ public class PatientServiceImpl implements PatientService {
             patient.setPreviousIllnesses(request.getPreviousIllnesses());
             patient.setPreviousSurgeries(request.getPreviousSurgeries());
             patient.setCurrentConditions(request.getCurrentConditions());
-            patient.setProfilePictureUri(request.getProfilePictureUri());
             patient.setIsDeleted(false);
             return patientRepository.save(patient);
         }

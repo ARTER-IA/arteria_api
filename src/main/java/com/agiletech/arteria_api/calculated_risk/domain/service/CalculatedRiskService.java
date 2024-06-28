@@ -7,6 +7,8 @@ import java.util.List;
 public interface CalculatedRiskService {
     List<CalculatedRisk> getAll();
     List<CalculatedRisk> getByFormId(Long formId);
+
+    List<CalculatedRisk> getByPatientId (Long patientId);
     CalculatedRisk getById(Long calculatedRiskId);
     CalculatedRisk create (CalculatedRisk calculatedRisk, Long formId);
     CalculatedRisk update (Long calculatedRiskId, CalculatedRisk calculatedRisk);
