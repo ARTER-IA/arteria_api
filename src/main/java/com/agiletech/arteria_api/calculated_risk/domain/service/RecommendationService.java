@@ -10,6 +10,7 @@ public interface RecommendationService {
     Recommendation getByCalculatedRisk(Long calculatedRiskId);
     Recommendation create(Recommendation recommendation, Long calculatedRiskId);
     Recommendation update(Long recommendationId, Recommendation recommendation);
+    Recommendation createWithGpt(Long calculatedRiskId);
 
 
 }

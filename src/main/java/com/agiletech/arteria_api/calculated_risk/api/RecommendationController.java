@@ -5,6 +5,7 @@ import com.agiletech.arteria_api.calculated_risk.mapping.RecommendationMapper;
 import com.agiletech.arteria_api.calculated_risk.resource.CreateRecommendationResource;
 import com.agiletech.arteria_api.calculated_risk.resource.RecommendationResource;
 import com.agiletech.arteria_api.calculated_risk.resource.UpdateRecommendationResource;
+import io.github.flashvayne.chatgpt.service.ChatgptService;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -52,5 +53,11 @@ public class RecommendationController {
     @PutMapping("{recommendationId}")
     public RecommendationResource updateRecommendation(@PathVariable Long recommendationId, @RequestBody UpdateRecommendationResource model){
         return recommendationMapper.toResource(recommendationService.update(recommendationId, recommendationMapper.toModel(model)));
+    }
+
+    @Operation(summary = "Create New Recommendation from GPT", description = "Created by GPT")
+    @PostMapping("gpt/{calculatedRiskId}")
+    public RecommendationResource createRecommendation(@PathVariable Long calculatedRiskId){
+        return recommendationMapper.toResource(recommendationService.createWithGpt(calculatedRiskId));
     }
 }
