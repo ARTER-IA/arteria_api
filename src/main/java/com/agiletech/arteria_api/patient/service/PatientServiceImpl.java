@@ -1,6 +1,10 @@
 package com.agiletech.arteria_api.patient.service;
 
+import com.agiletech.arteria_api.calculated_risk.domain.model.entity.CalculatedRisk;
+import com.agiletech.arteria_api.calculated_risk.domain.persistence.CalculatedRiskRepository;
 import com.agiletech.arteria_api.doctor.domain.persistence.DoctorRepository;
+import com.agiletech.arteria_api.form.domain.model.entity.Form;
+import com.agiletech.arteria_api.form.domain.persistence.FormRepository;
 import com.agiletech.arteria_api.patient.domain.model.entity.Patient;
 import com.agiletech.arteria_api.patient.domain.persistence.PatientRepository;
 import com.agiletech.arteria_api.patient.domain.service.PatientService;
@@ -29,6 +33,12 @@ public class PatientServiceImpl implements PatientService {
 
     @Autowired
     private DoctorRepository doctorRepository;
+
+    @Autowired
+    private FormRepository formRepository;
+
+    @Autowired
+    private CalculatedRiskRepository calculatedRiskRepository;
 
     @Override
     public List<Patient> getAll() {
@@ -102,6 +112,17 @@ public class PatientServiceImpl implements PatientService {
     public byte[] getProfilePicture(Long patientId) {
         var patient = patientRepository.findById(patientId);
         return patient.map(Patient::getProfilePictureUri).orElse(null);
+    }
+
+    @Override
+    public Float getLatestResultByPatient(Long patientId) {
+        Form form = formRepository.findFirstByPatientIdOrderByCreatedAtDesc(patientId);
+
+        if(form != null){
+            CalculatedRisk latestResult =  calculatedRiskRepository.findByFormId(form.getId());
+            return latestResult.getPrediction_probability();
+        }
+        return 0.0F;
     }
 
     @Override

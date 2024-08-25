@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 public interface CalculatedRiskRepository extends JpaRepository <CalculatedRisk, Long> {
     List<CalculatedRisk> getByFormId(Long formId);
+    CalculatedRisk findByFormId(Long formId);
 
     @Query("SELECT c FROM CalculatedRisk c JOIN Form f ON c.form.id = f.id WHERE f.patient.id = :patientId")
     List<CalculatedRisk> getAllByPatientId(@Param("patientId") Long patientId);

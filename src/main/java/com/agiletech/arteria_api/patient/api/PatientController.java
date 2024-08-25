@@ -59,6 +59,12 @@ public class PatientController {
         return patientMapper.toResource(patientService.getByFilters(fullName, gender, minAge, maxAge));
     }
 
+    @Operation(summary = "Get Latest Result by Patient", description = "Get Latest Result by Patient")
+    @GetMapping("latestResult/{patientId}")
+    public Float getLatestResultByPatient(@PathVariable Long patientId){
+        return patientService.getLatestResultByPatient(patientId);
+    }
+
     @Operation(summary = "Create New Patient", description = "Create New Patient")
     @PostMapping("doctor/{doctorId}")
     public PatientResource createPatient(@RequestBody CreatePatientResource model, @PathVariable Long doctorId){

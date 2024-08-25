@@ -16,4 +16,5 @@ public interface PatientService {
     Patient delete(Long patientId);
     void uploadProfilePicture (Long patientId, MultipartFile file) throws IOException;
     byte[] getProfilePicture(Long patientId);
+    Float getLatestResultByPatient(Long patientId);
 }

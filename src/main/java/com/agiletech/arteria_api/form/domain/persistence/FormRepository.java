@@ -14,4 +14,6 @@ public interface FormRepository extends JpaRepository<Form, Long> {
     List<Form> findByPatientId (Long patientId);
 
     List<Form> findByDoctorIdAndPatientId (Long doctorId, Long patientId);
+
+    Form findFirstByPatientIdOrderByCreatedAtDesc(Long patientId);
 }
