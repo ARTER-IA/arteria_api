@@ -8,9 +8,6 @@ import com.agiletech.arteria_api.calculated_risk.domain.service.RecommendationSe
 import com.agiletech.arteria_api.form.domain.model.entity.Form;
 import com.agiletech.arteria_api.shared.exception.ResourceNotFoundException;
 import com.agiletech.arteria_api.shared.exception.ResourceValidationException;
-import io.github.flashvayne.chatgpt.dto.ChatRequest;
-import io.github.flashvayne.chatgpt.dto.ChatResponse;
-import io.github.flashvayne.chatgpt.service.ChatgptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,8 +26,8 @@ public class RecommendationServiceImpl implements RecommendationService {
     @Autowired
     private CalculatedRiskRepository calculatedRiskRepository;
 
-    @Autowired
-    private ChatgptService chatgptService;
+    /*@Autowired
+    private ChatgptService chatgptService;*/
 
     @Override
     public List<Recommendation> getAll() {
@@ -69,7 +66,7 @@ public class RecommendationServiceImpl implements RecommendationService {
         }
     }
 
-    @Override
+    /*@Override
     public Recommendation createWithGpt(Long calculatedRiskId) {
         Recommendation request = new Recommendation();
 
@@ -82,9 +79,9 @@ public class RecommendationServiceImpl implements RecommendationService {
 
         request.setDescription(response.toString());
         return recommendationRepository.save(request);
-    }
+    }*/
 
-    private static ChatRequest getChatRequest(CalculatedRisk calculatedRisk) {
+    /*private static ChatRequest getChatRequest(CalculatedRisk calculatedRisk) {
         Integer maxTokens = 300;
         String model = "text-davinci-003";
         Double temperature = 0.5;
@@ -133,5 +130,5 @@ public class RecommendationServiceImpl implements RecommendationService {
         );
         ChatRequest chatRequest = new ChatRequest(model, message, maxTokens, temperature, topP);
         return chatRequest;
-    }
+    }*/
 }

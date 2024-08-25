@@ -54,10 +54,4 @@ public class RecommendationController {
     public RecommendationResource updateRecommendation(@PathVariable Long recommendationId, @RequestBody UpdateRecommendationResource model){
         return recommendationMapper.toResource(recommendationService.update(recommendationId, recommendationMapper.toModel(model)));
     }
-
-    @Operation(summary = "Create New Recommendation from GPT", description = "Created by GPT")
-    @PostMapping("gpt/{calculatedRiskId}")
-    public RecommendationResource createRecommendation(@PathVariable Long calculatedRiskId){
-        return recommendationMapper.toResource(recommendationService.createWithGpt(calculatedRiskId));
-    }
 }
