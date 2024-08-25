@@ -5,7 +5,6 @@ import com.agiletech.arteria_api.calculated_risk.mapping.RecommendationMapper;
 import com.agiletech.arteria_api.calculated_risk.resource.CreateRecommendationResource;
 import com.agiletech.arteria_api.calculated_risk.resource.RecommendationResource;
 import com.agiletech.arteria_api.calculated_risk.resource.UpdateRecommendationResource;
-import io.github.flashvayne.chatgpt.service.ChatgptService;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
