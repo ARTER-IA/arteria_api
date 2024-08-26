@@ -11,6 +11,7 @@
     <groupId>com.agiletech</groupId>
     <artifactId>arteria_api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
     <name>arteria_api</name>
     <description>arteria_api</description>
     <properties>
@@ -111,6 +112,12 @@
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
             <version>0.9.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-gcp-starter-sql-mysql</artifactId>
+            <version>1.2.3.RELEASE</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.theokanning.openai-gpt3-java/service -->
