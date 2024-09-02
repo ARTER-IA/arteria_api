@@ -43,6 +43,11 @@ public class FormServiceImpl implements FormService {
     }
 
     @Override
+    public Form getByCalculatedRiskId(Long calculatedRiskId) {
+        return formRepository.findByCalculatedRiskId(calculatedRiskId);
+    }
+
+    @Override
     public Form create(Form request, Long doctorId, Long patientId) {
         Doctor doctor = doctorRepository.findById(doctorId)
                 .orElseThrow(() -> new ResourceNotFoundException("Doctor not found with Id " + doctorId));
