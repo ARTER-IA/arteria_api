@@ -35,6 +35,11 @@ public class FormController {
         return mapper.toResource(formService.getById(formId));
     }
 
+    @GetMapping("calculatedRisk/{calculatedRiskId}")
+    public FormResource getByCalculatedRisk(@PathVariable Long calculatedRiskId){
+        return mapper.toResource(formService.getByCalculatedRiskId(calculatedRiskId));
+    }
+
     @GetMapping("/doctor/{doctorId}")
     public List<FormResource> getFormByDoctorId(@PathVariable Long doctorId) {
         return mapper.toResource(formService.getByDoctorId(doctorId));
