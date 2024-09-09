@@ -10,6 +10,7 @@ import com.agiletech.arteria_api.doctor.middleware.DoctorDetailsImpl;
 import com.agiletech.arteria_api.doctor.middleware.JwtHandlerDoctor;
 import com.agiletech.arteria_api.doctor.resource.AuthenticateDoctorResource;
 import com.agiletech.arteria_api.doctor.resource.DoctorResource;
+import com.agiletech.arteria_api.patient.domain.model.entity.Patient;
 import com.agiletech.arteria_api.security.domain.model.entity.Role;
 import com.agiletech.arteria_api.security.domain.model.enumeration.Roles;
 import com.agiletech.arteria_api.security.domain.persistence.RoleRepository;
@@ -30,7 +31,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -133,7 +136,6 @@ public class DoctorServiceImpl implements DoctorService {
                     .withPhone(request.getPhone())
                     .withWorkplace(request.getWorkplace())
                     .withAbout(request.getAbout())
-                    .withProfilePicUri(request.getProfilePicUri())
                     .withIsDeleted(request.getIsDeleted())
                     .withEmail(request.getEmail())
                     .withPassword(encoder.encode(request.getPassword()))
@@ -173,7 +175,6 @@ public class DoctorServiceImpl implements DoctorService {
                                     .withPhone(doctor.getPhone())
                                     .withWorkplace(doctor.getWorkplace())
                                     .withAbout(doctor.getAbout())
-                                    .withProfilePicUri(doctor.getProfilePicUri())
                                     .withIsDeleted(doctor.getIsDeleted())
                                     .withEmail(doctor.getEmail())))
                     .orElseThrow(() -> new ResourceNotFoundException(ENTITY, doctorId));
@@ -197,6 +198,21 @@ public class DoctorServiceImpl implements DoctorService {
             doctorRepository.save(doctor);
             return ResponseEntity.ok().build();
         }).orElseThrow(() -> new ResourceNotFoundException(ENTITY, doctorId));
+    }
+
+    @Override
+    public void uploadProfilePicture(Long doctorId, MultipartFile file) throws IOException {
+        var doctor = doctorRepository.findById(doctorId)
+                .orElseThrow(() -> new ResourceNotFoundException("Doctor", doctorId));
+
+        doctor.setProfilePictureUri(file.getBytes());
+        doctorRepository.save(doctor);
+    }
+
+    @Override
+    public byte[] getProfilePicture(Long doctorId) {
+        var doctor = doctorRepository.findById(doctorId);
+        return doctor.map(Doctor::getProfilePictureUri).orElse(null);
     }
 
 

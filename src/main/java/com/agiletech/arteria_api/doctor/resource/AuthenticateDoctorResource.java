@@ -25,7 +25,6 @@ public class AuthenticateDoctorResource {
     private String phone;
     private String workplace;
     private String about;
-    private String profilePicUri;
     private Integer isDeleted;
     private String email;
 

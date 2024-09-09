@@ -32,7 +32,6 @@ public class DoctorDetailsImpl implements UserDetails {
     private String phone;
     private String workplace;
     private String about;
-    private String profilePicUri;
     private Integer isDeleted;
     private String email;
 
@@ -97,7 +96,6 @@ public class DoctorDetailsImpl implements UserDetails {
                 doctor.getPhone(),
                 doctor.getWorkplace(),
                 doctor.getAbout(),
-                doctor.getProfilePicUri(),
                 doctor.getIsDeleted(),
                 doctor.getEmail(),
                 doctor.getPassword(),
