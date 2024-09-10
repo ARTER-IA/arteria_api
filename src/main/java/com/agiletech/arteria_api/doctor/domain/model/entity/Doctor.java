@@ -89,10 +89,9 @@ public class Doctor extends AuditModel {
     @Size(max = 100)
     private String about;
 
-    @NotNull
-    @NotBlank
-    @Size(max = 100)
-    private String profilePicUri;
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    private byte[] profilePictureUri;
 
     @NotNull
     private Integer isDeleted;

@@ -9,12 +9,17 @@ import com.agiletech.arteria_api.security.domain.service.communication.Authentic
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @Api(tags = "Doctor")
 @RestController
@@ -59,5 +64,29 @@ public class DoctorController {
     @PreAuthorize("hasRole('DOCTOR')")
     public ResponseEntity<?> deleteDoctor(@PathVariable Long doctorId) {
         return doctorService.delete(doctorId);
+    }
+
+    @PostMapping("upload/{doctorId}")
+    @PreAuthorize("hasRole('DOCTOR')")
+    public ResponseEntity<Map<String, String>> uploadProfilePicture(@PathVariable Long doctorId, @RequestParam("file") MultipartFile file) {
+        try {
+            doctorService.uploadProfilePicture(doctorId, file);
+            return ResponseEntity.ok(Map.of("message", "File uploaded successfully"));
+        } catch (IOException e) {
+            return ResponseEntity.status(500).body(Map.of("message", "File upload failed", "error", e.getMessage()));
+        }
+    }
+
+    @GetMapping("profilePicture/{doctorId}")
+    @PreAuthorize("hasRole('DOCTOR')")
+    public ResponseEntity<byte[]> getProfilePicture(@PathVariable Long doctorId) {
+        byte[] image = doctorService.getProfilePicture(doctorId);
+        if (image != null) {
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Content-Type", "image/jpeg");
+            return new ResponseEntity<>(image, headers, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }

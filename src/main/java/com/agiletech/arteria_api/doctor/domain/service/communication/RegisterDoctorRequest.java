@@ -77,11 +77,6 @@ public class RegisterDoctorRequest {
     private String about;
 
     @NotNull
-    @NotBlank
-    @Size(max = 100)
-    private String profilePicUri;
-
-    @NotNull
     private Integer isDeleted;
 
     @NotNull

@@ -10,6 +10,7 @@ import com.agiletech.arteria_api.doctor.middleware.DoctorDetailsImpl;
 import com.agiletech.arteria_api.doctor.middleware.JwtHandlerDoctor;
 import com.agiletech.arteria_api.doctor.resource.AuthenticateDoctorResource;
 import com.agiletech.arteria_api.doctor.resource.DoctorResource;
+import com.agiletech.arteria_api.patient.domain.model.entity.Patient;
 import com.agiletech.arteria_api.security.domain.model.entity.Role;
 import com.agiletech.arteria_api.security.domain.model.enumeration.Roles;
 import com.agiletech.arteria_api.security.domain.persistence.RoleRepository;
@@ -20,6 +21,7 @@ import com.agiletech.arteria_api.shared.mapping.EnhancedModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,9 +32,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -69,6 +74,18 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public ResponseEntity<?> authenticate(AuthenticateRequest request) {
         try {
+
+            Optional<Doctor> doctorOpt = doctorRepository.findByEmail(request.getEmail());
+
+            if (doctorOpt.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Doctor not found.");
+            }
+
+            Doctor doctor = doctorOpt.get();
+            if (doctor.getIsDeleted() == 1) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Doctor account is deleted.");
+            }
+
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
             );
@@ -133,7 +150,6 @@ public class DoctorServiceImpl implements DoctorService {
                     .withPhone(request.getPhone())
                     .withWorkplace(request.getWorkplace())
                     .withAbout(request.getAbout())
-                    .withProfilePicUri(request.getProfilePicUri())
                     .withIsDeleted(request.getIsDeleted())
                     .withEmail(request.getEmail())
                     .withPassword(encoder.encode(request.getPassword()))
@@ -173,7 +189,6 @@ public class DoctorServiceImpl implements DoctorService {
                                     .withPhone(doctor.getPhone())
                                     .withWorkplace(doctor.getWorkplace())
                                     .withAbout(doctor.getAbout())
-                                    .withProfilePicUri(doctor.getProfilePicUri())
                                     .withIsDeleted(doctor.getIsDeleted())
                                     .withEmail(doctor.getEmail())))
                     .orElseThrow(() -> new ResourceNotFoundException(ENTITY, doctorId));
@@ -197,6 +212,21 @@ public class DoctorServiceImpl implements DoctorService {
             doctorRepository.save(doctor);
             return ResponseEntity.ok().build();
         }).orElseThrow(() -> new ResourceNotFoundException(ENTITY, doctorId));
+    }
+
+    @Override
+    public void uploadProfilePicture(Long doctorId, MultipartFile file) throws IOException {
+        var doctor = doctorRepository.findById(doctorId)
+                .orElseThrow(() -> new ResourceNotFoundException("Doctor", doctorId));
+
+        doctor.setProfilePictureUri(file.getBytes());
+        doctorRepository.save(doctor);
+    }
+
+    @Override
+    public byte[] getProfilePicture(Long doctorId) {
+        var doctor = doctorRepository.findById(doctorId);
+        return doctor.map(Doctor::getProfilePictureUri).orElse(null);
     }
 
 
