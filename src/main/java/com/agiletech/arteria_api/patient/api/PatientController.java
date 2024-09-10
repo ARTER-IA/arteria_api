@@ -23,7 +23,7 @@ import java.util.Map;
 @Api(tags = "Patient")
 @RestController
 @RequestMapping("api/v1/patients")
-@CrossOrigin()
+@CrossOrigin
 public class PatientController {
     @Autowired
     private PatientService patientService;

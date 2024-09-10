@@ -14,7 +14,7 @@ import java.util.List;
 @Api(tags = "Feedback")
 @RestController
 @RequestMapping("api/v1/feedbacks")
-@CrossOrigin()
+@CrossOrigin
 public class FeedbackController {
 
     @Autowired
