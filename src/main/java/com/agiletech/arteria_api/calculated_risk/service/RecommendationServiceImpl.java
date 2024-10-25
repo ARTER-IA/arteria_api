@@ -8,6 +8,7 @@ import com.agiletech.arteria_api.calculated_risk.domain.service.RecommendationSe
 import com.agiletech.arteria_api.form.domain.model.entity.Form;
 import com.agiletech.arteria_api.shared.exception.ResourceNotFoundException;
 import com.agiletech.arteria_api.shared.exception.ResourceValidationException;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,22 +48,34 @@ public class RecommendationServiceImpl implements RecommendationService {
 
     @Override
     public Recommendation create(Recommendation request, Long calculatedRiskId) {
+
+        val length = request.getDescription().length();
+        if (length >= 5000){
+            throw new ResourceValidationException(ENTITY, "The recommendations cannot exceed 5000 characters.");
+        }
+
         CalculatedRisk calculatedRisk = calculatedRiskRepository.findById(calculatedRiskId)
                 .orElseThrow(() -> new ResourceNotFoundException(ENTITY2, calculatedRiskId));
         request.setCalculatedRisk(calculatedRisk);
+
         return recommendationRepository.save(request);
     }
 
     @Override
     public Recommendation update(Long recommendationId, Recommendation request) {
         try {
+            val length = request.getDescription().length();
+            if (length >= 5000){
+                throw new ResourceValidationException(ENTITY, "The recommendations cannot exceed 5000 characters.");
+            }
+
             Recommendation recommendation = recommendationRepository.findById(recommendationId)
                     .orElseThrow(() -> new ResourceNotFoundException(ENTITY, recommendationId));
             recommendation.setDescription(request.getDescription());
             return recommendationRepository.save(recommendation);
         }
         catch (Exception e){
-            throw new ResourceValidationException(ENTITY, "An error occurred while updating recommendation"  + recommendationId);
+            throw new ResourceValidationException(e.getMessage());
         }
     }
 
