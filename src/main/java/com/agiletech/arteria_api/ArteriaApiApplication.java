@@ -40,7 +40,7 @@ public class ArteriaApiApplication {
         @Override
         public void addCorsMappings(CorsRegistry registry) {
             registry.addMapping("/api/v1/**")
-                    .allowedOrigins("http://localhost:4200")
+                    .allowedOrigins("https://arteria-prod.web.app/")
                     .allowedMethods("*")
                     .maxAge(3600L)
                     .allowedHeaders("*")

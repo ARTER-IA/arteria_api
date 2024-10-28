@@ -24,7 +24,7 @@ import java.util.Map;
 @Api(tags = "Doctor")
 @RestController
 @RequestMapping("/api/v1/doctors")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin
 public class DoctorController {
 
     @Autowired
