@@ -16,7 +16,7 @@ import java.util.List;
 @Api(tags = "Allergy")
 @RestController
 @RequestMapping("api/v1/allergies")
-@CrossOrigin()
+@CrossOrigin
 public class AllergyController {
     @Autowired
     private AllergyService allergyService;

@@ -16,7 +16,7 @@ import java.util.List;
 @Api(tags = "Form")
 @RestController
 @RequestMapping("/api/v1/forms")
-@CrossOrigin()
+@CrossOrigin
 public class FormController {
 
     @Autowired
